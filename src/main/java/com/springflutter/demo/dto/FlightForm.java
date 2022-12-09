@@ -1,14 +1,16 @@
-package com.springflutter.demo.entity;
+package com.springflutter.demo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class JwtRequest {
+public class FlightForm {
 
-    private String username;
-    private String password;
+    Date date;
+    Double maximumPrice;
 }

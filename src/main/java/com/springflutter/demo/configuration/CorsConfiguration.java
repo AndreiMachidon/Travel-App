@@ -6,8 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-//this is the global cors configuration
-//this is used to allow every port to acces the api(used because angular is running on 4200 and spring on 9090)
+/**
+ * Cors configuration
+ */
 @Configuration
 public class CorsConfiguration {
 

@@ -1,4 +1,4 @@
-package com.springflutter.demo.entity;
+package com.springflutter.demo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,15 +8,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Role {
+public class HotelForm {
 
-    @Id
-    private String roleName;
-    private String roleDescription;
+    private String location;
+    private Date startDate;
+    private Date endDate;
+    private Integer numberOfPersons;
 
 }

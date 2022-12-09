@@ -18,39 +18,60 @@ public class JwtUtil {
 
     private static final int TOKEN_VALIDITY = 3600 * 5;
 
-    //this method returns the username from the Jwt Token
+    /**
+     *This method returns the token subject(in this case the username)
+     * @param token the jwt token(String)
+     * @return the subject from the claims(int this case it's the username)
+     */
     public String getUsernameFromToken(String token){
         return getClaimFromToken(token, Claims::getSubject);
     }
 
-    //this method takes a token and apply it to a generic function
+    /**
+     *This method signs the key with the secret key and gets all the claims from it
+     * @param token this is the jwt token(string)
+     * @return returns all the token claims(payload)
+     */
     private <T> T getClaimFromToken(String token, Function<Claims, T> claimResolver){
         final Claims claims = getAllClaimsFromToken(token);
         return claimResolver.apply(claims);
     }
 
-    //this method takes the token and returns its claims(claims = payload = body = the information that are contained in jwt)
+    /**
+     *This method signs the key with the secret key and gets all the claims from it
+     * @param token this is the jwt token(string)
+     * @return returns all the token claims(payload)
+     */
     private Claims getAllClaimsFromToken(String token){
         return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
     }
 
-    //this method checks if the username from the token is equal to the username from userDetails
+
     public boolean validateToken(String token, UserDetails userDetails){
         String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token)); //we check if the username is equal and also if the token is expired
     }
 
-    //we check if the expiration date is before the current date
+
     private boolean isTokenExpired(String token){
         final Date expirationDate= getExpirationDateFromToken(token);
         return expirationDate.before(new Date());
     }
- //this method gets the expiration date from the token
+
+    /**
+     * This method gets the expiration date from token
+     * @param token the jwt token
+     * @return returns the expiration date
+     */
     private Date getExpirationDateFromToken(String token){
         return getClaimFromToken(token, Claims::getExpiration);
     }
 
-    //this method generates a jwt token
+    /**
+     * This method generates a jwt token
+     * @param userDetails these are the user details which we put in the token subject
+     * @return returns the jwt object(String)
+     */
     public String generateToken(UserDetails userDetails){
         Map<String, Object> claims = new HashMap<>();
 

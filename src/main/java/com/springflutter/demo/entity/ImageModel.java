@@ -1,6 +1,11 @@
 package com.springflutter.demo.entity;
 
+import javax.imageio.ImageIO;
 import javax.persistence.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 
 @Entity
 @Table(name="image_model")
@@ -13,14 +18,11 @@ public class ImageModel {
     private String type;
 
     //this is the array that contains the picture's bytes
-    //we have to modify its value because the default is 25, and it is going to be longer
-    @Column(length = 50000000)
+    @Column(length = 500000000)
     private byte[] picByte;
 
-    //default constructor
-    public ImageModel() {
 
-    }
+    public ImageModel() {}
 
 
     public ImageModel(String name, String type, byte[] picByte) {
@@ -60,4 +62,6 @@ public class ImageModel {
     public void setPicByte(byte[] picByte) {
         this.picByte = picByte;
     }
+
+
 }

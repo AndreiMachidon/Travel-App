@@ -24,7 +24,7 @@ public class Hotel {
     @Column(name = "name")
     private String name;
 
-    @Column(name= "description")
+    @Column(name= "description", length = 999999999)
     private String description;
 
     @Column(name="location")
@@ -45,5 +45,23 @@ public class Hotel {
                     @JoinColumn(name="image_id") //creates a column on the new table names image_id which will contain the id of the image
             }
     )
-    private Set<ImageModel> productImages;
+    private Set<ImageModel> hotelImages;
+
+    @Column(name="price_per_night")
+    private Double pricePerNight;
+
+    @Column(name="is_booked")
+    private boolean isBooked = false;
+
+
+    public Hotel(String name, String description, String location, Date availableStartDate, Date availableEndDate, Set<ImageModel> productImages, Double pricePerNight) {
+        this.name = name;
+        this.description = description;
+        this.location = location;
+        this.availableStartDate = availableStartDate;
+        this.availableEndDate = availableEndDate;
+        this.hotelImages = productImages;
+        this.pricePerNight = pricePerNight;
+    }
+
 }

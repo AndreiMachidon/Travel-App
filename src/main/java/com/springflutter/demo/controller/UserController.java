@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -18,25 +19,21 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostConstruct //to call this method when we run the application
-    public void initRolesAndUsers(){
-        userService.initRolesAndUser();
-    }
-
     @PostMapping({"/registerNewUser"})
-    public User registerNewUser(@RequestBody User user){
+    public User registerNewUser(@RequestBody User user) {
         return userService.registerNewUser(user);
     }
 
-    @GetMapping({"/forAdmin"})
-    @PreAuthorize("hasRole('admin')")
-    public String forAdmin(){
-        return "This URL is only accessible to admin";
+    @PostMapping({"/registerNewUsers"})
+    public String registerNewUsers(@RequestBody User[] users){
+        String response = "";
+        for(User user : users){
+            userService.registerNewUser(user);
+            response += user.getUsername() + " registered successfully\n";
+        }
+        return response;
+
+
     }
 
-    @GetMapping({"/forUser"})
-    @PreAuthorize("hasAnyRole('admin', 'user')")
-    public String forUser(){
-        return "This URL is only accessbile to the user";
-    }
 }

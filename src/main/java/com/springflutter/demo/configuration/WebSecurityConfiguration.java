@@ -16,6 +16,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Web Security Configuration
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -41,8 +44,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.cors();
 
         httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("/authenticate", "/registerNewUser", "/addNewProduct", "/search/hotels").permitAll()
-                .antMatchers(HttpHeaders.ALLOW).permitAll()
+                .authorizeRequests()
+                    .antMatchers("/authenticate", "/registerNewUser", "/registerNewUsers").permitAll()
+                    .antMatchers("/hotels/add").hasRole("admin")
+                    .antMatchers(HttpHeaders.ALLOW).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)

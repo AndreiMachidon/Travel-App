@@ -4,7 +4,6 @@ import com.springflutter.demo.service.JwtService;
 import com.springflutter.demo.util.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-//this class extracts the jwt token and checks its information
+/**
+ * This class checks the jwt token for every request to the server
+ */
 @Component
 
 public class JwtRequestFilter extends OncePerRequestFilter {
